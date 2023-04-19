@@ -6,6 +6,63 @@
   height: 40vmin;
   pointer-events: none;
 }
+.menu{
+  display: flex;
+  padding: 2rem 4rem;
+  justify-content: space-between;
+}
+
+.menu-pages{
+  display: flex;
+  align-items: center
+}
+
+.menu-pages > h2 {
+  maring-left: 10px;
+}
+
+.page{
+  border: 1px solid #124734;
+  border-radius: 8px;
+  padding: 18px 24px 18px 24px;
+  margin-left: 15px
+}
+
+.ships-container{
+  display: flex;
+  border-top: 1px solid #000;
+}
+
+.ships-container > ul {
+  width: 744px;
+}
+
+.ship-info{
+  width: 716px;
+  background-color: #E5E5E5;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.ship {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+
+}
+
+.role{
+  background-color: #ACE5CF;
+  margin-right: 8px;
+  border-radius: 100px;
+  padding: 10px;
+}
+
+.shipbutton{
+  cursor: pointer;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

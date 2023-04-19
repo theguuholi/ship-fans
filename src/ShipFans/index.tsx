@@ -2,6 +2,7 @@ import { Suspense, useEffect } from "react";
 import { PreloadedQuery, usePreloadedQuery, useQueryLoader } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { ShipFansQuery } from "./__generated__/ShipFansQuery.graphql";
+import Ship from "./Ship";
 
 /**
  * This is the Graph QL Query you're making.
@@ -28,6 +29,7 @@ export const ShipFansQueryString = graphql`
 export const ShipFans = () => {
   const [shipFansQueryRef, loadShipFansQuery] =
     useQueryLoader<ShipFansQuery>(ShipFansQueryString);
+
   const getShips = (limit: number) => {
     loadShipFansQuery({ limit }, { fetchPolicy: "network-only" });
   };
@@ -35,6 +37,7 @@ export const ShipFans = () => {
   useEffect(() => {
     loadShipFansQuery({ limit: 5 }, { fetchPolicy: "network-only" });
   }, [loadShipFansQuery]);
+
   return (
     <Suspense fallback="">
       {!!shipFansQueryRef && (
@@ -59,5 +62,24 @@ const ShipFansInternal = (props: {
 }) => {
   const data = usePreloadedQuery(ShipFansQueryString, props.queryRef);
   console.log(data);
-  return <>SHIP FANS!</>;
+
+  return (
+    <div className="ships-container">
+      <ul>
+        {data.ships.map((ship) => (
+          <Ship key={ship.id} ship={ship} />
+        ))}
+      </ul>
+
+      <div>
+        <h1>My Favourite ships</h1>
+
+        <div>
+          <ul>
+            <li>ship favourite 1</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 };
