@@ -1,16 +1,20 @@
 import { useState } from "react";
 
 interface ShipProps {
-  id: string;
-  name: string;
-  roles: string[];
+  ship: {
+    id: string;
+    name: string;
+    roles: string[];
+  };
+  addToFavourite: () => {}
 }
 
-export default function Ship({ ship }: ShipProps) {
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+export default function Ship({ ship, addToFavourite }: ShipProps) {
+  const [isFavourite, setIsFavourite] = useState(false)
 
-  function onExpandShip() {
-    setIsExpanded(!isExpanded);
+  function onAddFavourite() {
+    addToFavourite(ship)
+    setIsFavourite(true)
   }
 
   return (
@@ -18,32 +22,13 @@ export default function Ship({ ship }: ShipProps) {
       <div className="ship">
         <div>
           <strong className="role">{ship.roles}</strong>
-          <span>li</span>
+          <button onClick={onAddFavourite} >
+            {isFavourite ? "liked" : "like"}
+            </button>
         </div>
 
         <span>{ship.name}</span>
-        <button onClick={onExpandShip} type="button" className="shipbutton">
-          ^
-        </button>
       </div>
-
-      {isExpanded && <div>pumpkin</div>}
     </div>
   );
 }
-
-// {
-//   "ships": [
-//       {
-//           "id": "5ea6ed2d080df4000697c903",
-//           "image": null,
-//           "name": "American Spirit",
-//           "roles": [
-//               "Support Ship"
-//           ],
-//           "type": "Cargo",
-//           "home_port": "Port of Los Angeles",
-//           "year_built": null
-//       }
-//   ]
-// }

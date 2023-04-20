@@ -21,6 +21,29 @@
   maring-left: 10px;
 }
 
+.favourites{
+  margin-left: 16px;
+}
+
+.favouriteShips{
+  display: flex;
+
+}
+
+button {
+  cursor: pointer;
+}
+
+.favouriteShip{
+  background-color: #E5E5E5;
+  margin-right: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .page{
   border: 1px solid #124734;
   border-radius: 8px;

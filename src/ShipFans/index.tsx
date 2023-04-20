@@ -1,8 +1,9 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { PreloadedQuery, usePreloadedQuery, useQueryLoader } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { ShipFansQuery } from "./__generated__/ShipFansQuery.graphql";
 import Ship from "./Ship";
+import FavouriteShips from "./FavouriteShips";
 
 /**
  * This is the Graph QL Query you're making.
@@ -61,25 +62,27 @@ const ShipFansInternal = (props: {
   getShips: (limit: number) => void;
 }) => {
   const data = usePreloadedQuery(ShipFansQueryString, props.queryRef);
-  console.log(data);
+  // console.log(data);
+
+  const [favouriteShips, setFavouriteShips] = useState<any[]>([]);
+
+  function addToFavourite(ship) {
+
+    const hasFavouriteShip = favouriteShips.filter(favouriteShip => favouriteShip.id === ship.id)
+    if (hasFavouriteShip.length === 0){
+      setFavouriteShips(favouriteShips => [...favouriteShips, ship])
+    }
+  }
 
   return (
     <div className="ships-container">
       <ul>
-        {data.ships.map((ship) => (
-          <Ship key={ship.id} ship={ship} />
+        {data.ships?.map((ship) => (
+          <Ship key={ship.id} ship={ship} addToFavourite={addToFavourite} />
         ))}
       </ul>
 
-      <div>
-        <h1>My Favourite ships</h1>
-
-        <div>
-          <ul>
-            <li>ship favourite 1</li>
-          </ul>
-        </div>
-      </div>
+      <FavouriteShips favouriteShips={favouriteShips} />
     </div>
   );
 };
