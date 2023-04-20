@@ -1,9 +1,16 @@
-
 export default function FavouriteShips(props: any) {
-
   return (
     <div className="favourites">
       <h1>My Favourite ships</h1>
+      <strong>
+        Average Year Built:{" "}
+        {Math.trunc(
+          props.favouriteShips.reduce((acc, ship) => acc + ship.year_built, 0) /
+            props.favouriteShips.filter((s) => s.year_built !== null).length
+        )}
+      </strong>
+
+      <hr />
 
       <div className="favouriteShips">
         {props.favouriteShips.map((ship) => (
